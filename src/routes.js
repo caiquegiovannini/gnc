@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
-import NonConformities from './pages/NonConformities';
+import Actions from './pages/Actions';
 import NotFound from './pages/NotFound';
 
 function routes() {
@@ -10,7 +10,7 @@ function routes() {
     <BrowserRouter>
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/non-conformities/:id" component={NonConformities} />
+        <Route path="/actions" component={Actions} />
         <Route path="*" component={NotFound} />
       </Switch>
     </BrowserRouter>

@@ -1,0 +1,23 @@
+/* HEADER */
+.home__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.home__header__input {
+  width: 50%;
+  font-size: 1.6rem;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* MAIN */
+.home__list__total {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.home__list__cards {
+  width: 100%;
+}
