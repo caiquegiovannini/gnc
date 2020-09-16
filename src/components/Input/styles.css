@@ -1,0 +1,29 @@
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.input__label {
+  color: var(--color-text-subtitle);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.input__field {
+  font-size: 1.6rem;
+}
+
+@media (min-width: 768px) {
+  .input {
+    margin-bottom: 2.5rem;
+  }
+
+  .input__label {
+    font-size: 1.6rem;
+  }
+
+  .input__field {
+    font-size: 1.8rem;
+  }
+}

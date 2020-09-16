@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Card from '../../components/Card';
+import Modal from '../../components/Modal';
 
 import './styles.css';
 
@@ -39,6 +40,8 @@ function Home() {
           <Card />
         </section>
       </main>
+
+      <Modal />
     </section>
   );
 }

@@ -1,0 +1,33 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.textarea__label {
+  color: var(--color-text-subtitle);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.textarea__field {
+  font-size: 1.6rem;
+  padding: 0.5rem 0.5rem;
+  resize: vertical;
+  height: 15rem;
+}
+
+@media (min-width: 768px) {
+  .textarea {
+    margin-bottom: 2.5rem;
+  }
+
+  .textarea__label {
+    font-size: 1.6rem;
+  }
+
+  .textarea__field {
+    font-size: 1.8rem;
+    height: 20rem;
+  }
+}
