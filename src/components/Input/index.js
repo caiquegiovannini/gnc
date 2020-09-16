@@ -24,11 +24,12 @@ function Input({ name, label, type }) {
 
 Input.defaultProps = {
   type: 'text',
+  label: '',
 };
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   type: PropTypes.string,
 };
 

@@ -1,0 +1,38 @@
+.action-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.action-card__topic {
+  color: var(--color-text-informative);
+  font-weight: 400;
+}
+
+.action-card__topic:not(:first-child) {
+  margin-top: 1rem;
+}
+
+.action-card__data {
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+@media (min-width: 768px) {
+  .action-card__topic {
+    font-size: 1.6rem;
+  }
+
+  .action-card__topic:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+
+  .action-card__data {
+    font-size: 1.8rem;
+  }
+}
+
+.action-card__selected {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}

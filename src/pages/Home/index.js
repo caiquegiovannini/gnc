@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Card from '../../components/Card';
+import NonConformityCard from '../../components/NonConformityCard';
 import Modal from '../../components/Modal';
 
 import './styles.css';
@@ -9,6 +9,7 @@ function Home() {
   return (
     <section className="home container">
       <header className="home__header">
+
         <input
           type="text"
           className="home__header__input"
@@ -36,12 +37,12 @@ function Home() {
           <strong>12</strong>
         </p>
         <section className="home__list__cards">
-          <Card />
-          <Card />
+          <NonConformityCard />
+          <NonConformityCard />
         </section>
       </main>
 
-      <Modal />
+      {/* <Modal /> */}
     </section>
   );
 }

@@ -1,0 +1,27 @@
+.actions__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions__header__selected {
+  font-size: 1.3rem;
+  color: var(--color-text-informative);
+}
+
+.actions__list {
+  margin-top: 4rem;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .actions__selected {
+    font-size: 1.5rem;
+  }
+
+  .actions__list {
+    margin-top: 4.5rem;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 5rem;
+  }
+}
