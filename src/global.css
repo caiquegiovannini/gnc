@@ -21,6 +21,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  outline-color: var(--color-primary);
 }
 
 html,
@@ -62,6 +63,10 @@ button {
   color: var(--color-text-primary);
 }
 
+a {
+  text-decoration: none;
+}
+
 .container {
   width: 90vw;
   max-width: 960px;
@@ -93,6 +98,8 @@ button {
   cursor: pointer;
   outline: none;
   transition: 0.2s;
+  display: flex;
+  align-items: center;
 }
 
 @media (min-width: 768px) {

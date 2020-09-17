@@ -5,11 +5,17 @@
   margin-bottom: 30px;
 }
 
-.home__header__input {
+.home__header__filter {
   width: 50%;
   font-size: 1.6rem;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 1.4rem;
+  height: 4rem;
+}
+
+@media (min-width: 768px) {
+  .home__header__filter {
+    height: 5rem;
+  }
 }
 
 /* MAIN */

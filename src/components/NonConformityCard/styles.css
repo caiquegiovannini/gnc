@@ -18,9 +18,16 @@
 }
 
 .nc-card__header__remove {
-  color: var(--color-text-subtitle);
-  font-weight: 700;
+  background: none;
+  border: none;
+  outline: none;
+  width: 1.5rem;
+  height: 1.5rem;
   cursor: pointer;
+}
+
+.nc-card__header__remove img {
+  width: 100%;
 }
 
 /* CARD MAIN */

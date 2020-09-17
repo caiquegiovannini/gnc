@@ -24,6 +24,14 @@
     },
     {
       "id": 2,
+      "what-to-do": "Fix the program",
+      "why-to-do-it": "Because it is crashed",
+      "how-to-do-it": "Find the bug",
+      "where-to-do-it": "On the code",
+      "until-when": "21-09-2020"
+    },
+    {
+      "id": 3,
       "what-to-do": "Solve the problem",
       "why-to-do-it": "Because it hurts our company",
       "how-to-do-it": "Send an letter to anvisa",
@@ -42,7 +50,7 @@
       ],
       "corrective-actions": [
         1,
-        2
+        3
       ]
     }
   ]

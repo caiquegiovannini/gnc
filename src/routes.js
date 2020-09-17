@@ -10,7 +10,7 @@ function routes() {
     <BrowserRouter>
       <Switch>
         <Route path="/" component={Home} exact />
-        <Route path="/actions" component={Actions} />
+        <Route path="/:id/actions" component={Actions} />
         <Route path="*" component={NotFound} />
       </Switch>
     </BrowserRouter>
