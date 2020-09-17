@@ -99,6 +99,7 @@ a {
   outline: none;
   transition: 0.2s;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 

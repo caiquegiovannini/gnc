@@ -6,7 +6,9 @@ import DeleteIcon from '../../assets/close-icon.svg';
 
 import './styles.css';
 
-function NonConformityCard({ data, departments }) {
+function NonConformityCard({
+  data, departments, setConfirmation, setId,
+}) {
   const { id, description } = data;
   const date = data['ocurrence-date'].replaceAll('-', '/');
   const actions = data['corrective-actions'];
@@ -27,7 +29,14 @@ function NonConformityCard({ data, departments }) {
           </h3>
         </div>
 
-        <button type="button" className="nc-card__header__remove">
+        <button
+          type="button"
+          className="nc-card__header__remove"
+          onClick={() => {
+            setConfirmation(true);
+            setId(id);
+          }}
+        >
           <img
             src={DeleteIcon}
             alt="delete"
@@ -66,6 +75,8 @@ NonConformityCard.propTypes = {
     'corrective-actions': PropTypes.arrayOf(PropTypes.number).isRequired,
   }).isRequired,
   departments: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  setConfirmation: PropTypes.func.isRequired,
+  setId: PropTypes.func.isRequired,
 };
 
 export default NonConformityCard;

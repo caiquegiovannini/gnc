@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import utils from '../../services/utils';
+import api from '../../services/api';
 
 import Input from '../Input';
 import Select from '../Select';
@@ -7,7 +9,24 @@ import Textarea from '../Textarea';
 
 import './styles.css';
 
-function Modal({ handleModal, allDepartments }) {
+function allFieldsValidate(body, exception = '') {
+  const bodyObject = JSON.parse(body);
+  const keys = Object.keys(bodyObject);
+
+  const notFilled = keys.filter((key) => (
+    key !== exception
+    && (bodyObject[key] === '' || bodyObject[key].length === 0)
+  ));
+
+  return notFilled;
+}
+
+function Modal({
+  closeModal, allDepartments,
+}) {
+  const { formatDate } = utils;
+  const { BASE_URL } = api;
+
   const [ocurrenceDate, setOcurrenceDate] = useState('');
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [description, setDescription] = useState('');
@@ -28,8 +47,37 @@ function Modal({ handleModal, allDepartments }) {
     );
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    const date = ocurrenceDate ? formatDate(ocurrenceDate) : '';
+    const newNonConformity = JSON.stringify({
+      description,
+      'ocurrence-date': date,
+      departments: selectedDepartments,
+      'corrective-actions': [],
+    });
+
+    const allFields = allFieldsValidate(newNonConformity, 'corrective-actions');
+
+    if (allFields.length === 0) {
+      try {
+        await fetch(`${BASE_URL}/non-conformities`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: newNonConformity,
+        });
+
+        closeModal();
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      allFields.map((field) => document.querySelector(`#${field}`)
+        .setAttribute('style', 'border: 1px solid red;'));
+    }
   }
 
   return (
@@ -59,11 +107,11 @@ function Modal({ handleModal, allDepartments }) {
               onChange={(event) => handleSelectDepartments(event.target.value)}
             />
 
-            <div className="modal__labels">
-              <p className="modal__info">clique para remover</p>
+            {selectedDepartments.length !== 0
+              && (
+                <div className="modal__labels">
+                  <p className="modal__info">clique para remover</p>
 
-              {selectedDepartments
-                && (
                   <div>
                     {selectedDepartments.map((dept) => (
                       <div key={dept} className="modal__labels__department">
@@ -77,14 +125,14 @@ function Modal({ handleModal, allDepartments }) {
                       </div>
                     ))}
                   </div>
-                )}
-            </div>
+                </div>
+              )}
 
             <Textarea
               name="description"
               label="Descrição"
               value={description}
-              onChange={(event) => { setDescription(event.target.value); }}
+              onChange={(event) => setDescription(event.target.value)}
             />
           </fieldset>
 
@@ -96,7 +144,7 @@ function Modal({ handleModal, allDepartments }) {
             <div className="modal__footer__buttons">
               <button
                 type="button"
-                onClick={() => handleModal(false)}
+                onClick={closeModal}
                 className="button modal__button"
               >
                 Cancelar
@@ -119,7 +167,7 @@ function Modal({ handleModal, allDepartments }) {
 }
 
 Modal.propTypes = {
-  handleModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   allDepartments: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 

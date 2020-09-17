@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-function Input({ name, label, type }) {
+function Input({
+  name, label, type, onChange,
+}) {
   return (
     <div className="input">
       <label
@@ -16,6 +18,7 @@ function Input({ name, label, type }) {
       <input
         type={type}
         id={name}
+        onChange={onChange}
         className="input__field"
       />
     </div>
@@ -31,6 +34,7 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   type: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Input;

@@ -1,0 +1,40 @@
+.confirmation-overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.confirmation {
+  background-color: var(--color-card);
+  width: 80%;
+  max-width: 600px;
+  padding: 2rem;
+  margin: auto;
+}
+
+.confirmation__message {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.confirmation__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .confirmation__message {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .confirmation__buttons {
+    justify-content: space-evenly;
+  }
+}

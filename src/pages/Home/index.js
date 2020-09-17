@@ -1,40 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../services/api';
+import utils from '../../services/utils';
 
 import NonConformityCard from '../../components/NonConformityCard';
 import Modal from '../../components/Modal';
+import Confirmation from '../../components/Confirmation';
 
 import './styles.css';
 
 function Home() {
   const { BASE_URL } = api;
+  const { fetchData } = utils;
 
   const [nonConformities, setNonConformities] = useState(null);
   const [departments, setDepartments] = useState(null);
   const [filter, setFilter] = useState('');
   const [modal, setModal] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [nonConformityId, setNonConformityId] = useState(null);
 
   // Fetch all departments
   useEffect(() => {
-    try {
-      fetch(`${BASE_URL}/departments`)
-        .then((response) => response.json())
-        .then((data) => setDepartments(data));
-    } catch (error) {
-      console.error(error);
-    }
-  }, [BASE_URL]);
+    fetchData(`${BASE_URL}/departments`)
+      .then((result) => setDepartments(result));
+  }, [BASE_URL, fetchData]);
 
   // Fetch all non conformities
   useEffect(() => {
-    try {
-      fetch(`${BASE_URL}/non-conformities`)
-        .then((response) => response.json())
-        .then((data) => setNonConformities(data));
-    } catch (error) {
-      console.error(error);
-    }
-  }, [BASE_URL]);
+    fetchData(`${BASE_URL}/non-conformities`)
+      .then((result) => setNonConformities(result));
+  }, [BASE_URL, fetchData, modal, deleteConfirmation]);
 
   function renderNonConformitiesCards(allNonConformities, allDepartments) {
     return allNonConformities.map((nonConformity) => {
@@ -54,9 +49,19 @@ function Home() {
           key={nonConformity.id}
           data={nonConformity}
           departments={conformityDepartmentsNames}
+          setConfirmation={setDeleteConfirmation}
+          setId={setNonConformityId}
         />
       );
     });
+  }
+
+  function closeModal() {
+    setModal(false);
+  }
+
+  function handleDelete() {
+
   }
 
   return (
@@ -102,7 +107,21 @@ function Home() {
       </main>
 
       {modal && departments
-        && <Modal handleModal={setModal} allDepartments={departments} />}
+        && (
+          <Modal
+            closeModal={closeModal}
+            allDepartments={departments}
+          />
+        )}
+
+      {deleteConfirmation
+        && (
+          <Confirmation
+            setConfirmation={setDeleteConfirmation}
+            handleDelete={handleDelete}
+            id={nonConformityId}
+          />
+        )}
     </section>
   );
 }
