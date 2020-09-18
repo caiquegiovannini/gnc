@@ -1,8 +1,17 @@
 .action-card {
   position: relative;
-  cursor: pointer;
   font-family: 'Roboto', sans-serif;
   text-align: left;
+  width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.07s ease-in-out;
+}
+
+.action-card:active {
+  transform: translate(-0.5rem, -0.5rem);
 }
 
 .action-card__topic {

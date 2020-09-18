@@ -28,7 +28,15 @@ function Home() {
   // Fetch all non conformities
   useEffect(() => {
     fetchData(`${BASE_URL}/non-conformities`)
-      .then((result) => setNonConformities(result));
+      .then((results) => {
+        const sortedResults = results.sort((a, b) => (
+          a['ocurrence-date'] < b['ocurrence-date']
+            ? 1
+            : -1
+        ));
+
+        setNonConformities(sortedResults);
+      });
   }, [BASE_URL, fetchData, modal, deleteConfirmation]);
 
   function renderNonConformitiesCards(allNonConformities, allDepartments) {

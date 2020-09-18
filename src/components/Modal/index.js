@@ -51,10 +51,17 @@ function Modal({
     event.preventDefault();
 
     const date = ocurrenceDate ? formatDate(ocurrenceDate) : '';
+    const selectedDepartmentsIds = allDepartments.reduce((acc, dept) => {
+      if (selectedDepartments.includes(dept.name)) {
+        return [...acc, dept.id];
+      }
+      return acc;
+    }, []);
+
     const newNonConformity = JSON.stringify({
       description,
       'ocurrence-date': date,
-      departments: selectedDepartments,
+      departments: selectedDepartmentsIds,
       'corrective-actions': [],
     });
 
@@ -96,7 +103,7 @@ function Modal({
               name="ocurrence-date"
               label="Data de ocorrência"
               value={ocurrenceDate}
-              onChange={(event) => { setOcurrenceDate(event.target.value); }}
+              onChange={(event) => setOcurrenceDate(event.target.value)}
             />
 
             <Select
