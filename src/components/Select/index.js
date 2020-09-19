@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 function Select({
-  name, label, optionDefault, options, onChange,
+  id, label, optionDefault, options, onChange,
 }) {
   return (
     <div className="select">
       <label
-        htmlFor={name}
+        htmlFor={id}
         className="select__label"
       >
         {label}
       </label>
 
       <select
-        id={name}
+        id={id}
         defaultValue={optionDefault}
         onChange={onChange}
         className="select__field"
@@ -41,7 +41,7 @@ Select.defaultProps = {
 };
 
 Select.propTypes = {
-  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   label: PropTypes.string,
   optionDefault: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.oneOfType([

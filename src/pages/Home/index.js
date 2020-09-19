@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { BASE_URL } from '../../services/api';
 import { fetchData } from '../../services/utils';
 
+import Select from '../../components/Select';
 import NonConformityCard from '../../components/NonConformityCard';
 import Modal from '../../components/Modal';
 import Confirmation from '../../components/Confirmation';
@@ -11,17 +12,26 @@ import Confirmation from '../../components/Confirmation';
 import './styles.css';
 
 function Home() {
-  const [nonConformities, setNonConformities] = useState(null);
-  const [departments, setDepartments] = useState(null);
+  const [allNonConformities, setAllNonConformities] = useState(null);
+  const [allDepartments, setAllDepartments] = useState([]);
   const [filter, setFilter] = useState('');
+  const [filteredNonConformities, setFilteredNonConformities] = useState([]);
   const [modal, setModal] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
   const [nonConformityId, setNonConformityId] = useState(null);
 
+  const filterOptions = allDepartments && [
+    ...allDepartments,
+    {
+      id: 'filterAll',
+      name: 'Todos',
+    },
+  ];
+
   // Fetch all departments
   useEffect(() => {
     fetchData(`${BASE_URL}/departments`)
-      .then((result) => setDepartments(result));
+      .then((result) => setAllDepartments(result));
   }, []);
 
   // Fetch all non conformities
@@ -34,14 +44,31 @@ function Home() {
             : -1
         ));
 
-        setNonConformities(sortedResults);
+        setAllNonConformities(sortedResults);
       });
   }, [modal, deleteConfirmation]);
 
-  function renderNonConformitiesCards(allNonConformities, allDepartments) {
-    return allNonConformities.map((nonConformity) => {
+  // Filter non conformities
+  useEffect(() => {
+    if (filter && filter !== 'Todos') {
+      const filterId = allDepartments.reduce((id, dept) => {
+        if (dept.name === filter) {
+          return dept.id;
+        }
+        return id;
+      }, null);
+      const filteredNC = allNonConformities.filter((nc) => nc.departments.includes(filterId));
+
+      setFilteredNonConformities(filteredNC);
+    } else {
+      setFilteredNonConformities(allNonConformities);
+    }
+  }, [allDepartments, allNonConformities, filter]);
+
+  function renderNonConformitiesCards(nonConformities, departments) {
+    return nonConformities.map((nonConformity) => {
       const conformityDepartmentsIds = nonConformity.departments;
-      const conformityDepartmentsNames = allDepartments.reduce((names, dept) => {
+      const conformityDepartmentsNames = departments.reduce((names, dept) => {
         if (conformityDepartmentsIds.includes(dept.id)) {
           return [
             ...names,
@@ -71,18 +98,14 @@ function Home() {
     <section className="home container">
       <ToastContainer />
       <header className="home__header">
-
-        <select
-          value={filter}
-          onChange={(event) => setFilter(event.target.value)}
-          className="home__header__filter"
-        >
-          <option value="" disabled hidden>filtrar por dept.</option>
-          <option value="Todos">Todos</option>
-          {departments && departments.map(({ id, name }) => (
-            <option key={id} value={name}>{name}</option>
-          ))}
-        </select>
+        <div className="home__header__filter">
+          <Select
+            id="filter"
+            optionDefault="filtrar por dept."
+            options={filterOptions}
+            onChange={(event) => setFilter(event.target.value)}
+          />
+        </div>
 
         <button
           type="button"
@@ -94,27 +117,28 @@ function Home() {
       </header>
 
       <main className="home__list">
-        {nonConformities && departments
+        {filteredNonConformities
           ? (
             <>
               <p className="home__list__total">
                 Total de
                 {' '}
-                <strong>{nonConformities.length}</strong>
+                <strong>{filteredNonConformities.length}</strong>
               </p>
               <section className="home__list__cards">
-                {renderNonConformitiesCards(nonConformities, departments)}
+                {allDepartments
+                  && renderNonConformitiesCards(filteredNonConformities, allDepartments)}
               </section>
             </>
           )
           : 'Carregando...'}
       </main>
 
-      {modal && departments
+      {modal && allDepartments
         && (
           <Modal
             closeModal={closeModal}
-            allDepartments={departments}
+            allDepartments={allDepartments}
           />
         )}
 

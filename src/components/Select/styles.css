@@ -1,6 +1,7 @@
 .select {
   display: flex;
   flex-direction: column;
+  height: 100%;
   margin-bottom: 2rem;
 }
 
@@ -12,6 +13,7 @@
 
 .select__field {
   font-size: 1.6rem;
+  height: 100%;
   padding-top: 0.2rem;
   padding-bottom: 0.2rem;
 }
@@ -27,5 +29,6 @@
 
   .select__field {
     font-size: 1.8rem;
+    padding: 0 1rem;
   }
 }
