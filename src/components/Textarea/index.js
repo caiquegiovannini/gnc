@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 
 import './styles.css';
 
-function Textarea({ name, label, onChange }) {
+function Textarea({ id, label, onChange }) {
   return (
     <div className="textarea">
       <label
-        htmlFor={name}
+        htmlFor={id}
         className="textarea__label"
       >
         {label}
       </label>
 
       <textarea
-        id={name}
+        id={id}
         className="textarea__field"
         onChange={onChange}
       />
@@ -23,7 +23,7 @@ function Textarea({ name, label, onChange }) {
 }
 
 Textarea.propTypes = {
-  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };

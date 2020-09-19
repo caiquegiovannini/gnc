@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { BASE_URL } from '../../services/api';
+import { fetchData } from '../../services/utils';
 
 import ActionCard from '../../components/ActionCard';
 
@@ -18,18 +19,22 @@ function Actions() {
 
   // Fetch all corrective actions
   useEffect(() => {
-    fetch(`${BASE_URL}/corrective-actions`)
-      .then((response) => response.json())
-      .then((data) => setActions(data));
+    fetchData(`${BASE_URL}/corrective-actions`)
+      .then((results) => (results.status === 'ok'
+        ? setActions(results.data)
+        : toast.error(`${results.error}`)));
   }, []);
 
   // Fetch this non conformity's corrective actions
   useEffect(() => {
-    fetch(`${BASE_URL}/non-conformities/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setNonConformity(data);
-        setActionsSelected(data['corrective-actions']);
+    fetchData(`${BASE_URL}/non-conformities/${id}`)
+      .then((results) => {
+        if (results.status === 'ok') {
+          setNonConformity(results.data);
+          setActionsSelected(results.data['corrective-actions']);
+        } else {
+          toast.error(`${results.error}`);
+        }
       });
   }, [id]);
 
@@ -76,7 +81,8 @@ function Actions() {
             <p className="actions__header__selected">
               <strong>{actionsSelected ? actionsSelected.length : '0'}</strong>
               {' '}
-              selecionadas
+              selecionada
+              {actionsSelected && actionsSelected.length === 1 ? '' : 's'}
             </p>
           </div>
 

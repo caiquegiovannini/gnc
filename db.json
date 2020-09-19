@@ -68,24 +68,29 @@
       "id": 3
     },
     {
-      "description": "asdas asdasd asda s dasda",
-      "ocurrence-date": "19-09-2020",
-      "departments": [
-        2
-      ],
-      "corrective-actions": [],
-      "id": 4
-    },
-    {
       "description": "asdasd asda asda sd",
       "ocurrence-date": "19-09-2020",
       "departments": [
         2
       ],
       "corrective-actions": [
-        2
+        2,
+        3
       ],
       "id": 5
+    },
+    {
+      "description": "rrrrrrrrr rr rrrrrr rrr",
+      "ocurrence-date": "18-09-2020",
+      "departments": [
+        3
+      ],
+      "corrective-actions": [
+        1,
+        2,
+        3
+      ],
+      "id": 6
     }
   ]
 }

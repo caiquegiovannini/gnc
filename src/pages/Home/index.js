@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { BASE_URL } from '../../services/api';
 import { fetchData } from '../../services/utils';
@@ -31,20 +31,26 @@ function Home() {
   // Fetch all departments
   useEffect(() => {
     fetchData(`${BASE_URL}/departments`)
-      .then((result) => setAllDepartments(result));
+      .then((results) => (results.status === 'ok'
+        ? setAllDepartments(results.data)
+        : toast.error(`${results.error}`)));
   }, []);
 
   // Fetch all non conformities
   useEffect(() => {
     fetchData(`${BASE_URL}/non-conformities`)
       .then((results) => {
-        const sortedResults = results.sort((a, b) => (
-          a['ocurrence-date'] < b['ocurrence-date']
-            ? 1
-            : -1
-        ));
+        if (results.status === 'ok') {
+          const sortedResults = results.data.sort((a, b) => (
+            a['ocurrence-date'] < b['ocurrence-date']
+              ? 1
+              : -1
+          ));
 
-        setAllNonConformities(sortedResults);
+          setAllNonConformities(sortedResults);
+        } else {
+          toast.error(`${results.error}`);
+        }
       });
   }, [modal, deleteConfirmation]);
 
@@ -96,7 +102,6 @@ function Home() {
 
   return (
     <section className="home container">
-      <ToastContainer />
       <header className="home__header">
         <div className="home__header__filter">
           <Select

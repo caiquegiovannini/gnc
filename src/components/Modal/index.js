@@ -15,7 +15,9 @@ import './styles.css';
 function Modal({
   closeModal, allDepartments,
 }) {
-  const [ocurrenceDate, setOcurrenceDate] = useState(formatDate.yearMonthDay(new Date()));
+  const today = formatDate.yearMonthDay(new Date());
+
+  const [ocurrenceDate, setOcurrenceDate] = useState(today);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [description, setDescription] = useState('');
 
@@ -91,14 +93,14 @@ function Modal({
 
             <Input
               type="date"
-              name="ocurrence-date"
+              id="ocurrence-date"
               label="Data de ocorrência"
               value={ocurrenceDate}
               onChange={(event) => setOcurrenceDate(event.target.value)}
             />
 
             <Select
-              name="departments"
+              id="departments"
               label="Departamentos"
               optionDefault="Selecione os departamentos"
               options={allDepartments}
@@ -127,7 +129,7 @@ function Modal({
               )}
 
             <Textarea
-              name="description"
+              id="description"
               label="Descrição"
               value={description}
               onChange={(event) => setDescription(event.target.value)}
