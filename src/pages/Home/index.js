@@ -8,6 +8,7 @@ import Select from '../../components/Select';
 import NonConformityCard from '../../components/NonConformityCard';
 import Modal from '../../components/Modal';
 import Confirmation from '../../components/Confirmation';
+import Loading from '../../components/Loading';
 
 import './styles.css';
 
@@ -136,7 +137,7 @@ function Home() {
               </section>
             </>
           )
-          : 'Carregando...'}
+          : <Loading />}
       </main>
 
       {modal && allDepartments

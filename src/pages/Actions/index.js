@@ -6,6 +6,7 @@ import { BASE_URL } from '../../services/api';
 import { fetchData } from '../../services/utils';
 
 import ActionCard from '../../components/ActionCard';
+import Loading from '../../components/Loading';
 
 import './styles.css';
 
@@ -104,7 +105,7 @@ function Actions() {
                 handleClickAction={handleClickAction}
               />
             )))
-            : 'Carregando...'}
+            : <Loading />}
         </div>
       </form>
     </section>

@@ -1,0 +1,23 @@
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading::before {
+  content: '';
+  width: 45px;
+  height: 45px;
+  margin-bottom: 1rem;
+  border: 5px solid var(--color-primary);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
