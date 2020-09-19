@@ -14,7 +14,8 @@
   --color-border: #CCCCCC;
   --color-card: #FFFFFF;
 
-  font-size: 62.5%;
+  /* font-size: 62.5%; */
+  font-size: 58%;
 }
 
 * {
@@ -69,7 +70,7 @@ a {
 
 .container {
   width: 90vw;
-  max-width: 960px;
+  max-width: 900px;
   margin: 0 auto;
 }
 

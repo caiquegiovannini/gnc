@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import api from '../../services/api';
+import { BASE_URL } from '../../services/api';
 
 import ActionCard from '../../components/ActionCard';
 
@@ -9,7 +9,6 @@ import './styles.css';
 function Actions() {
   const history = useHistory();
   const { id } = useParams();
-  const { BASE_URL } = api;
 
   const [actions, setActions] = useState(null);
   const [nonConformity, setNonConformity] = useState(null);

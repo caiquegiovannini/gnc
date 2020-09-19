@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../services/api';
-import utils from '../../services/utils';
+import { BASE_URL } from '../../services/api';
+import { fetchData } from '../../services/utils';
 
 import NonConformityCard from '../../components/NonConformityCard';
 import Modal from '../../components/Modal';
@@ -9,9 +9,6 @@ import Confirmation from '../../components/Confirmation';
 import './styles.css';
 
 function Home() {
-  const { BASE_URL } = api;
-  const { fetchData } = utils;
-
   const [nonConformities, setNonConformities] = useState(null);
   const [departments, setDepartments] = useState(null);
   const [filter, setFilter] = useState('');

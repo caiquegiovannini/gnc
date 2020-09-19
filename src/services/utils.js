@@ -19,7 +19,7 @@ function formatDate(date) {
   return `${day}-${month}-${year}`;
 }
 
-export default {
+module.exports = {
   formatDate,
   fetchData,
 };

@@ -54,17 +54,18 @@
       ]
     },
     {
-      "description": "Uma descrição aqui!",
-      "ocurrence-date": "17-09-2020",
+      "description": "Aconteceu um problema X.",
+      "ocurrence-date": "18-09-2020",
       "departments": [
-        1,
+        2,
         3
       ],
       "corrective-actions": [
+        3,
         2,
         1
       ],
-      "id": 2
+      "id": 3
     }
   ]
 }

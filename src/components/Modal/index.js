@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import utils from '../../services/utils';
-import api from '../../services/api';
+import { formatDate } from '../../services/utils';
+import { BASE_URL } from '../../services/api';
+import { allFieldsValidate } from '../../services/validations';
 
 import Input from '../Input';
 import Select from '../Select';
@@ -9,24 +10,9 @@ import Textarea from '../Textarea';
 
 import './styles.css';
 
-function allFieldsValidate(body, exception = '') {
-  const bodyObject = JSON.parse(body);
-  const keys = Object.keys(bodyObject);
-
-  const notFilled = keys.filter((key) => (
-    key !== exception
-    && (bodyObject[key] === '' || bodyObject[key].length === 0)
-  ));
-
-  return notFilled;
-}
-
 function Modal({
   closeModal, allDepartments,
 }) {
-  const { formatDate } = utils;
-  const { BASE_URL } = api;
-
   const [ocurrenceDate, setOcurrenceDate] = useState('');
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [description, setDescription] = useState('');

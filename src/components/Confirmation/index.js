@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import api from '../../services/api';
+import { BASE_URL } from '../../services/api';
 
 import './styles.css';
 
 function Confirmation({ setConfirmation, id }) {
-  const { BASE_URL } = api;
-
   async function handleDelete() {
     try {
       await fetch(`${BASE_URL}/non-conformities/${id}`, {
