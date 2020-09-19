@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import { BASE_URL } from '../../services/api';
 
 import ActionCard from '../../components/ActionCard';
@@ -19,7 +21,7 @@ function Actions() {
     fetch(`${BASE_URL}/corrective-actions`)
       .then((response) => response.json())
       .then((data) => setActions(data));
-  }, [BASE_URL]);
+  }, []);
 
   // Fetch this non conformity's corrective actions
   useEffect(() => {
@@ -29,7 +31,7 @@ function Actions() {
         setNonConformity(data);
         setActionsSelected(data['corrective-actions']);
       });
-  }, [BASE_URL, id]);
+  }, [id]);
 
   function handleClickAction(actionId) {
     if (actionsSelected.includes(actionId)) {
@@ -59,8 +61,9 @@ function Actions() {
       });
 
       history.push('/');
+      toast.success('As ações corretivas foram salvas com sucesso!');
     } catch (error) {
-      console.error(error);
+      toast.error(`O seguinte erro ocorreu: ${error}`);
     }
   }
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+
 import { formatDate } from '../../services/utils';
 import { BASE_URL } from '../../services/api';
 import { allFieldsValidate } from '../../services/validations';
@@ -13,7 +15,7 @@ import './styles.css';
 function Modal({
   closeModal, allDepartments,
 }) {
-  const [ocurrenceDate, setOcurrenceDate] = useState('');
+  const [ocurrenceDate, setOcurrenceDate] = useState(formatDate.yearMonthDay(new Date()));
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [description, setDescription] = useState('');
 
@@ -36,7 +38,7 @@ function Modal({
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const date = ocurrenceDate ? formatDate(ocurrenceDate) : '';
+    const date = ocurrenceDate ? formatDate.dayMonthYear(ocurrenceDate) : '';
     const selectedDepartmentsIds = allDepartments.reduce((acc, dept) => {
       if (selectedDepartments.includes(dept.name)) {
         return [...acc, dept.id];
@@ -51,9 +53,9 @@ function Modal({
       'corrective-actions': [],
     });
 
-    const allFields = allFieldsValidate(newNonConformity, 'corrective-actions');
+    const fieldsNotFilled = allFieldsValidate(newNonConformity, 'corrective-actions');
 
-    if (allFields.length === 0) {
+    if (fieldsNotFilled.length === 0) {
       try {
         await fetch(`${BASE_URL}/non-conformities`, {
           method: 'POST',
@@ -64,12 +66,15 @@ function Modal({
         });
 
         closeModal();
+        toast.success('Não conformidade criada com sucesso!');
       } catch (error) {
-        console.error(error);
+        toast.error(`O seguinte erro ocorreu: ${error}`);
       }
     } else {
-      allFields.map((field) => document.querySelector(`#${field}`)
-        .setAttribute('style', 'border: 1px solid red;'));
+      fieldsNotFilled.map((field) => document.querySelector(`#${field}`)
+        .setAttribute('style', 'border: 1px solid var(--color-alert);'));
+
+      toast.error('Todos os campos devem ser preenchidos');
     }
   }
 

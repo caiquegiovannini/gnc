@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+
 import { BASE_URL } from '../../services/api';
 import { fetchData } from '../../services/utils';
 
@@ -20,7 +22,7 @@ function Home() {
   useEffect(() => {
     fetchData(`${BASE_URL}/departments`)
       .then((result) => setDepartments(result));
-  }, [BASE_URL, fetchData]);
+  }, []);
 
   // Fetch all non conformities
   useEffect(() => {
@@ -34,7 +36,7 @@ function Home() {
 
         setNonConformities(sortedResults);
       });
-  }, [BASE_URL, fetchData, modal, deleteConfirmation]);
+  }, [modal, deleteConfirmation]);
 
   function renderNonConformitiesCards(allNonConformities, allDepartments) {
     return allNonConformities.map((nonConformity) => {
@@ -65,12 +67,9 @@ function Home() {
     setModal(false);
   }
 
-  function handleDelete() {
-
-  }
-
   return (
     <section className="home container">
+      <ToastContainer />
       <header className="home__header">
 
         <select
@@ -123,7 +122,6 @@ function Home() {
         && (
           <Confirmation
             setConfirmation={setDeleteConfirmation}
-            handleDelete={handleDelete}
             id={nonConformityId}
           />
         )}

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+
 import { BASE_URL } from '../../services/api';
 
 import './styles.css';
@@ -12,8 +14,9 @@ function Confirmation({ setConfirmation, id }) {
       });
 
       setConfirmation(false);
+      toast.success('Não conformidade exlcuída com sucesso!');
     } catch (error) {
-      console.log(error);
+      toast.error(`O seguinte erro ocorreu: ${error}`);
     }
   }
 
