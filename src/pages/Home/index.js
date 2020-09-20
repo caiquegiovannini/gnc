@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { BASE_URL } from '../../services/api';
-import { fetchData } from '../../services/utils';
+import { fetchData } from '../../services/utils/fetchData';
 
 import Select from '../../components/Select';
 import NonConformityCard from '../../components/NonConformityCard';
@@ -131,7 +131,7 @@ function Home() {
                 {' '}
                 <strong>{filteredNonConformities.length}</strong>
               </p>
-              <section className="home__list__cards">
+              <section className="home__list__cards" data-testid="list">
                 {allDepartments
                   && renderNonConformitiesCards(filteredNonConformities, allDepartments)}
               </section>

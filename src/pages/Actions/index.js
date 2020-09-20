@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { BASE_URL } from '../../services/api';
-import { fetchData } from '../../services/utils';
+import { fetchData } from '../../services/utils/fetchData';
 
 import ActionCard from '../../components/ActionCard';
 import Loading from '../../components/Loading';

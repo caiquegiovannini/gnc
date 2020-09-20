@@ -16,6 +16,7 @@ function Input({
       </label>
 
       <input
+        data-testid="input"
         type={type}
         id={id}
         value={value}

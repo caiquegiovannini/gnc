@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 
-import { formatDate } from '../../services/utils';
 import { BASE_URL } from '../../services/api';
-import { allFieldsValidate } from '../../services/validations';
+import { yearMonthDay, dayMonthYear } from '../../services/utils/formatDate';
+import { allFieldsValidate } from '../../services/utils/validations';
 
 import Input from '../Input';
 import Select from '../Select';
@@ -15,7 +15,7 @@ import './styles.css';
 function Modal({
   closeModal, allDepartments,
 }) {
-  const today = formatDate.yearMonthDay(new Date());
+  const today = yearMonthDay(new Date());
 
   const [ocurrenceDate, setOcurrenceDate] = useState(today);
   const [selectedDepartments, setSelectedDepartments] = useState([]);
@@ -40,7 +40,7 @@ function Modal({
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const date = ocurrenceDate ? formatDate.dayMonthYear(ocurrenceDate) : '';
+    const date = ocurrenceDate ? dayMonthYear(ocurrenceDate) : '';
     const selectedDepartmentsIds = allDepartments.reduce((acc, dept) => {
       if (selectedDepartments.includes(dept.name)) {
         return [...acc, dept.id];

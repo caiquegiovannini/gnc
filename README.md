@@ -14,8 +14,8 @@ You need the following tools installed in order to run this project: [Git](https
 2. Enter the folder running through the terminal: <br> `cd gnc`;
 3. Run `npm install` to install the project dependencies;
 4. Run `npm run dev` to start the database and development server at once;
-5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
+5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser;
+6. Run `npm run test` to run the tests.
 ---
 
 Made with :heart: by [Caique Giovannini](https://www.linkedin.com/in/caique-giovannini/)
