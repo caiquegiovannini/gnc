@@ -60,7 +60,7 @@ function NonConformityCard({
           to={`/${id}/actions`}
           className="button button--primary"
         >
-          Gerenciar ações corretivas
+          Criar ação corretiva
         </Link>
       </footer>
     </div>

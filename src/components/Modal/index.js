@@ -48,6 +48,8 @@ function Modal({
       return acc;
     }, []);
 
+    const fieldsNotFilled = allFieldsValidate(newNonConformity, 'corrective-actions'); //
+
     const newNonConformity = JSON.stringify({
       description,
       'ocurrence-date': date,
@@ -55,7 +57,6 @@ function Modal({
       'corrective-actions': [],
     });
 
-    const fieldsNotFilled = allFieldsValidate(newNonConformity, 'corrective-actions');
 
     if (fieldsNotFilled.length === 0) {
       try {

@@ -37,6 +37,14 @@
       "how-to-do-it": "Send an letter to anvisa",
       "where-to-do-it": "On the company",
       "until-when": "12-12-2019"
+    },
+    {
+      "what-to-do": "Dar um jeito",
+      "why-to-do-it": "Está quebrado",
+      "how-to-do-it": "Arrumar",
+      "where-to-do-it": "No departamento",
+      "until-when": "20/11/2020",
+      "id": 4
     }
   ],
   "non-conformities": [
@@ -74,23 +82,11 @@
         2
       ],
       "corrective-actions": [
-        2,
-        3
+        1,
+        5,
+        4
       ],
       "id": 5
-    },
-    {
-      "description": "rrrrrrrrr rr rrrrrr rrr",
-      "ocurrence-date": "18-09-2020",
-      "departments": [
-        3
-      ],
-      "corrective-actions": [
-        1,
-        2,
-        3
-      ],
-      "id": 6
     }
   ]
 }

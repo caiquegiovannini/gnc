@@ -6,59 +6,59 @@ import { BASE_URL } from '../../services/api';
 import { fetchData } from '../../services/utils/fetchData';
 
 import ActionCard from '../../components/ActionCard';
-import Loading from '../../components/Loading';
 
 import './styles.css';
 
 function Actions() {
   const history = useHistory();
-  const { id } = useParams();
+  const { nonConformityId } = useParams();
 
-  const [actions, setActions] = useState(null);
-  const [nonConformity, setNonConformity] = useState(null);
-  const [actionsSelected, setActionsSelected] = useState(null);
+  const [nonConformity, setNonConformity] = useState({});
+  const [action, setAction] = useState({
+    'what-to-do': '',
+    'why-to-do-it': '',
+    'how-to-do-it': '',
+    'where-to-do-it': '',
+    'until-when': '',
+  });
 
-  // Fetch all corrective actions
   useEffect(() => {
-    fetchData(`${BASE_URL}/corrective-actions`)
-      .then((results) => (results.status === 'ok'
-        ? setActions(results.data)
-        : toast.error(`${results.error}`)));
-  }, []);
-
-  // Fetch this non conformity's corrective actions
-  useEffect(() => {
-    fetchData(`${BASE_URL}/non-conformities/${id}`)
-      .then((results) => {
-        if (results.status === 'ok') {
-          setNonConformity(results.data);
-          setActionsSelected(results.data['corrective-actions']);
-        } else {
-          toast.error(`${results.error}`);
-        }
-      });
-  }, [id]);
-
-  function handleClickAction(actionId) {
-    if (actionsSelected.includes(actionId)) {
-      const newActions = actionsSelected.filter((action) => action !== actionId);
-
-      setActionsSelected(newActions);
-    } else {
-      setActionsSelected([...actionsSelected, actionId]);
+    function fetchNonConformity() {
+      fetchData(`${BASE_URL}/non-conformities/${nonConformityId}`)
+        .then((results) => {
+          if (results.status === 'ok') {
+            setNonConformity(results.data);
+          } else {
+            toast.error(`${results.error}`);
+          }
+        });
     }
-  }
+
+    fetchNonConformity();
+  }, [nonConformityId]);
 
   async function handleSaveActions(event) {
     event.preventDefault();
 
-    const editedNonConformity = JSON.stringify({
-      ...nonConformity,
-      'corrective-actions': actionsSelected,
-    });
-
     try {
-      await fetch(`${BASE_URL}/non-conformities/${id}`, {
+      const response = await fetch(`${BASE_URL}/corrective-actions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(action),
+      });
+
+      const { id } = await response.json();
+      const editedNonConformity = JSON.stringify({
+        ...nonConformity,
+        'corrective-actions': [
+          ...nonConformity['corrective-actions'],
+          id,
+        ],
+      });
+
+      await fetch(`${BASE_URL}/non-conformities/${nonConformityId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -77,15 +77,7 @@ function Actions() {
     <section className="actions container">
       <form onSubmit={handleSaveActions}>
         <header className="actions__header">
-          <div>
-            <h3>Ações Corretivas</h3>
-            <p className="actions__header__selected">
-              <strong>{actionsSelected ? actionsSelected.length : '0'}</strong>
-              {' '}
-              selecionada
-              {actionsSelected && actionsSelected.length === 1 ? '' : 's'}
-            </p>
-          </div>
+          <h3>Ação Corretiva</h3>
 
           <button
             type="submit"
@@ -96,16 +88,7 @@ function Actions() {
         </header>
 
         <div className="actions__list">
-          {actions && actionsSelected
-            ? (actions.map((action) => (
-              <ActionCard
-                key={action.id}
-                action={action}
-                actionsSelected={actionsSelected}
-                handleClickAction={handleClickAction}
-              />
-            )))
-            : <Loading />}
+          <ActionCard action={action} setAction={setAction} />
         </div>
       </form>
     </section>

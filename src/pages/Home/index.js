@@ -29,12 +29,15 @@ function Home() {
     },
   ];
 
-  // Fetch all departments
   useEffect(() => {
-    fetchData(`${BASE_URL}/departments`)
-      .then((results) => (results.status === 'ok'
-        ? setAllDepartments(results.data)
-        : toast.error(`${results.error}`)));
+    function fetchAllDepartments() {
+      fetchData(`${BASE_URL}/departments`)
+        .then((results) => (results.status === 'ok'
+          ? setAllDepartments(results.data)
+          : toast.error(`${results.error}`)));
+    }
+
+    fetchAllDepartments();
   }, []);
 
   // Fetch all non conformities

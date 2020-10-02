@@ -1,60 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Selected from '../../assets/selected.svg';
+import Input from '../Input';
 
 import './styles.css';
 
-function ActionCard({ action, actionsSelected, handleClickAction }) {
-  const untilDate = action['until-when'].replaceAll('-', '/');
-  const isSelected = actionsSelected.includes(action.id);
+function ActionCard({ action, setAction }) {
+  function setActionKey(key, value) {
+    setAction({
+      ...action,
+      [key]: value,
+    });
+  }
 
   return (
-    <button
-      type="button"
-      onClick={() => handleClickAction(action.id)}
+    <div
       className="action-card card"
     >
 
-      <h4 className="action-card__topic">O que fazer:</h4>
-      <p className="action-card__data">{action['what-to-do']}</p>
+      <Input id="what-to-do" label="O que fazer:" value={action['what-to-do']} onChange={(event) => setActionKey('what-to-do', event.target.value)} />
 
-      <h4 className="action-card__topic">Por que fazer:</h4>
-      <p className="action-card__data">{action['why-to-do-it']}</p>
+      <Input id="why-to-do" label="Por que fazer:" value={action['why-to-do-it']} onChange={(event) => setActionKey('why-to-do-it', event.target.value)} />
 
-      <h4 className="action-card__topic">Como fazer:</h4>
-      <p className="action-card__data">{action['how-to-do-it']}</p>
+      <Input id="how-to-do" label="Como fazer:" value={action['how-to-do-it']} onChange={(event) => setActionKey('how-to-do-it', event.target.value)} />
 
-      <h4 className="action-card__topic">Onde fazer:</h4>
-      <p className="action-card__data">{action['where-to-do-it']}</p>
+      <Input id="where-to-do" label="Onde fazer:" value={action['where-to-do-it']} onChange={(event) => setActionKey('where-to-do-it', event.target.value)} />
 
-      <h4 className="action-card__topic">Até:</h4>
-      <p className="action-card__data">{untilDate}</p>
+      <Input id="until-when" label="Até:" value={action['until-when']} onChange={(event) => setActionKey('until-when', event.target.value)} />
 
-      {isSelected
-        && (
-          <img
-            src={Selected}
-            alt="selected"
-            className="action-card__selected"
-          />
-        )}
-
-    </button>
+    </div>
   );
 }
 
 ActionCard.propTypes = {
   action: PropTypes.shape({
-    id: PropTypes.number.isRequired,
     'what-to-do': PropTypes.string.isRequired,
     'why-to-do-it': PropTypes.string.isRequired,
     'how-to-do-it': PropTypes.string.isRequired,
     'where-to-do-it': PropTypes.string.isRequired,
     'until-when': PropTypes.string.isRequired,
   }).isRequired,
-  actionsSelected: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
-  handleClickAction: PropTypes.func.isRequired,
+  setAction: PropTypes.func.isRequired,
 };
 
 export default ActionCard;
